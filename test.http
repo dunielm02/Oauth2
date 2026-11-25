@@ -1,0 +1,11 @@
+GET http://localhost:8080/health HTTP/2.0
+
+###
+
+POST http://localhost:8080/register HTTP/2.0
+Content-Type: application/json
+
+{
+  "username": "duniel",
+  "password": "mesa"
+}
