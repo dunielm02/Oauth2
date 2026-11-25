@@ -4,7 +4,10 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+	"log"
 	"net/http"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 func NewServer(db *sql.DB) *http.Server {
@@ -26,12 +29,20 @@ func NewServer(db *sql.DB) *http.Server {
 			return
 		}
 
+		hashedPass, err := bcrypt.GenerateFromPassword([]byte(userdata.Password_hash), bcrypt.DefaultCost)
+		if err != nil {
+			w.WriteHeader(http.StatusBadGateway)
+			return 
+		}
+
 		err = db.QueryRowContext(context.Background(),
 		"INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id",
 		userdata.Username,
-		userdata.Password_hash).Scan(&userdata.ID)
+		hashedPass,
+		).Scan(&userdata.ID)
 
 		if err != nil {
+			log.Println(err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}

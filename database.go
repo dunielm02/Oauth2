@@ -12,7 +12,9 @@ import (
 func NewDb() *sql.DB {
 	_ = godotenv.Load()
 
-	dsn := os.Getenv("DATABASE_URL")
+	dsn := os.Getenv("POSTGRES_URL")
+
+	fmt.Println(dsn)
 
 	conn, err := sql.Open("pgx", dsn)
 	if err != nil {
