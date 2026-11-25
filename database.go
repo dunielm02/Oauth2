@@ -14,8 +14,6 @@ func NewDb() *sql.DB {
 
 	dsn := os.Getenv("POSTGRES_URL")
 
-	fmt.Println(dsn)
-
 	conn, err := sql.Open("pgx", dsn)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
