@@ -6,13 +6,13 @@ import (
 	"os"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/joho/godotenv"
 )
 
 func NewDb() *sql.DB {
+	_ = godotenv.Load()
+
 	dsn := os.Getenv("DATABASE_URL")
-	if dsn == "" {
-		dsn = "postgres://Auth:AuthSeverSuperPassword123472832*43243@localhost:5432/Auth"
-	}
 
 	conn, err := sql.Open("pgx", dsn)
 	if err != nil {
