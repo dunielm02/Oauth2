@@ -9,3 +9,13 @@ Content-Type: application/json
   "username": "duniel",
   "password": "mesa"
 }
+
+###
+
+POST http://localhost:8080/login HTTP/2.0
+Content-Type: application/json
+
+{
+  "username": "duniel",
+  "password": "mesa"
+}

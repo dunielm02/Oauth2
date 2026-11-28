@@ -9,7 +9,9 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func NewDb() *sql.DB {
+var DB *sql.DB
+
+func NewDb() {
 	_ = godotenv.Load()
 
 	dsn := os.Getenv("POSTGRES_URL")
@@ -25,5 +27,5 @@ func NewDb() *sql.DB {
 		panic("Not connected to database")
 	}
 
-	return conn
+	DB = conn
 }

@@ -3,9 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	db := NewDb()
+	NewDb()
 
-	s := NewServer(db)
+	s := NewServer()
 
 	fmt.Println("listening on port 8080")
 	s.ListenAndServe()
